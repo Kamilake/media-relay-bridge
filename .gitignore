@@ -18,3 +18,8 @@ local.properties
 /diag/
 *.heic
 *.HEIC
+
+# Release signing — never commit
+keystore.properties
+*.jks
+*.keystore
