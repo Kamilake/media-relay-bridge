@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:locale="en">
+    <string name="app_name">Media Relay Bridge</string>
+    <string name="share_target_label">Convert to legacy format</string>
+    <string name="main_intro_title">Media Relay Bridge</string>
+    <string name="main_intro_body">Share HEIC / HEIF / AVIF images or HEVC videos from any app and pick \"%1$s\" to convert them to legacy formats (JPEG / PNG / H.264 MP4) and re-share.</string>
+    <string name="dialog_converting">Converting…</string>
+    <string name="dialog_progress_format">%1$d / %2$d</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="toast_unsupported">Unsupported media: %1$s</string>
+    <string name="toast_failed">Conversion failed: %1$s</string>
+    <string name="toast_no_input">No media to convert</string>
+    <string name="share_chooser_title">Share converted media</string>
+</resources>

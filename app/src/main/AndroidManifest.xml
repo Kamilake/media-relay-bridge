@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/Theme.MediaRelayBridge">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MediaRelayBridge">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ShareReceiverActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:label="@string/share_target_label"
+            android:theme="@style/Theme.MediaRelayBridge.Translucent">
+
+            <!-- Single item -->
+            <intent-filter android:label="@string/share_target_label">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/heic" />
+                <data android:mimeType="image/heif" />
+                <data android:mimeType="image/heic-sequence" />
+                <data android:mimeType="image/heif-sequence" />
+                <data android:mimeType="image/avif" />
+                <data android:mimeType="image/avif-sequence" />
+                <data android:mimeType="video/heic" />
+                <data android:mimeType="video/heif" />
+                <data android:mimeType="video/avif" />
+                <data android:mimeType="video/x-matroska" />
+                <data android:mimeType="video/hevc" />
+                <data android:mimeType="video/H265" />
+            </intent-filter>
+
+            <!-- Multiple items -->
+            <intent-filter android:label="@string/share_target_label">
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/heic" />
+                <data android:mimeType="image/heif" />
+                <data android:mimeType="image/heic-sequence" />
+                <data android:mimeType="image/heif-sequence" />
+                <data android:mimeType="image/avif" />
+                <data android:mimeType="image/avif-sequence" />
+                <data android:mimeType="video/heic" />
+                <data android:mimeType="video/heif" />
+                <data android:mimeType="video/avif" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+    </application>
+
+</manifest>

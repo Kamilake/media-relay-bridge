@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">미디어 릴레이 브릿지</string>
+    <string name="share_target_label">✨ 옛날 형식으로 변환하기</string>
+    <string name="main_intro_title">미디어 릴레이 브릿지 🌉</string>
+    <string name="main_intro_body">안녕하세요! 😊\n\n다른 앱에서 HEIC / HEIF / AVIF 사진이나 HEVC 동영상을 공유해 주세요. 그 다음에 \"%1$s\"을(를) 골라 주시면, 호환성 좋은 옛날 형식(JPEG / PNG / H.264 MP4)으로 살포시 바꿔서 다시 공유할 수 있게 도와드릴게요! 💫\n\n무거운 최신 코덱 때문에 친구한테 보내기 어려웠던 미디어, 이제 걱정 마세요~ 🎉</string>
+    <string name="dialog_converting">변환하고 있어요… ✨</string>
+    <string name="dialog_progress_format">%1$d / %2$d 개 완료! 🎯</string>
+    <string name="dialog_cancel">취소할래요</string>
+    <string name="toast_unsupported">😢 이건 아직 못 다뤄요: %1$s</string>
+    <string name="toast_failed">😵 변환에 실패했어요: %1$s</string>
+    <string name="toast_no_input">🤔 변환할 미디어가 없어요!</string>
+    <string name="share_chooser_title">변환된 미디어 공유하기 📤</string>
+</resources>
