@@ -132,6 +132,63 @@ HEIC가 `image/jpeg`로 위장되는 사례(예: 카카오톡 경유) 대응. **
 .\gradlew.bat installDebug
 ```
 
+#### 릴리즈 APK 서명
+
+배포용 서명된 APK를 만들려면 키스토어가 필요합니다. **키스토어와 비밀번호는 절대 git에 커밋하지 마세요.** 키를 분실하면 같은 패키지명으로 업데이트 배포가 영구적으로 불가능합니다.
+
+```powershell
+# 1) 키스토어 1회 생성 (JDK의 keytool)
+keytool -genkeypair -v `
+    -keystore $HOME\keystores\media-relay-bridge.jks `
+    -alias mrb-release -keyalg RSA -keysize 4096 -validity 10000
+
+# 2) 프로젝트 루트에 keystore.properties 작성 (.gitignore 처리됨)
+#    storeFile=C:/Users/<you>/keystores/media-relay-bridge.jks
+#    storePassword=...
+#    keyAlias=mrb-release
+#    keyPassword=...
+
+# 3) 서명된 release APK
+.\gradlew.bat assembleRelease
+# → app/build/outputs/apk/release/app-release.apk
+```
+
+`keystore.properties`가 없으면 `assembleRelease`는 그대로 돌지만 `app-release-unsigned.apk`만 나옵니다 (CI / 외부 기여자가 빌드만 검증하는 용도).
+
+#### GitHub Actions 자동 릴리즈
+
+`main`에 푸시될 때마다 [`.github/workflows/release.yml`](.github/workflows/release.yml)이 서명된 APK를 빌드해 GitHub Release로 자동 게시합니다. 태그는 `v0.0.<커밋수>+<short-sha>` 형식.
+
+활성화하려면 리포지토리 **Settings → Secrets and variables → Actions** 에 다음 4개 시크릿을 등록:
+
+| Secret | 값 |
+|---|---|
+| `KEYSTORE_BASE64` | `.jks` 파일을 base64로 인코딩한 문자열 |
+| `KEYSTORE_PASSWORD` | 키스토어 비밀번호 |
+| `KEY_ALIAS` | 예: `mrb-release` |
+| `KEY_PASSWORD` | 키 비밀번호 (대부분 키스토어 비밀번호와 동일) |
+
+`KEYSTORE_BASE64` 만드는 법 (Windows PowerShell):
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\keystores\media-relay-bridge.jks")) `
+    | Set-Clipboard
+# → 클립보드에 복사된 문자열을 그대로 시크릿에 붙여넣기
+```
+
+`gh` CLI가 있다면 한 줄로:
+
+```powershell
+gh secret set KEYSTORE_BASE64 --body ([Convert]::ToBase64String([IO.File]::ReadAllBytes("$HOME\keystores\media-relay-bridge.jks")))
+gh secret set KEYSTORE_PASSWORD
+gh secret set KEY_ALIAS --body "mrb-release"
+gh secret set KEY_PASSWORD
+```
+
+#### 아키텍처 / ABI
+
+이 앱은 **universal APK 한 개로 모든 ABI(arm64-v8a / armeabi-v7a / x86 / x86_64)에서 동작합니다.** 우리 코드는 100% Kotlin/JVM이고 NDK·JNI를 직접 쓰지 않습니다 (`MediaCodec`/`ImageReader` 같은 OS API만 호출). `transcoder`도 순수 Java/Kotlin입니다. 패키징되는 네이티브는 Jetpack Compose가 끌어오는 `libandroidx.graphics.path.so` (~10KB × 4 ABI) 정도라 ABI splits를 굳이 만들 이유는 없습니다.
+
 ### 디버깅 팁
 
 ```powershell
