@@ -51,6 +51,8 @@ UI는 거의 없습니다. 한번 설치하고 잊어버리세요. 공유 시트
   </tr>
 </table>
 
+> 변환이 끝나면 ①과 동일한 시스템 공유 시트가 다시 떠서, 이번엔 변환된 JPEG/PNG/MP4를 원하는 앱으로 보낼 수 있습니다.
+
 ### 동작 방식
 
 1. 갤러리/파일 앱에서 HEIC/HEVC 미디어를 **공유** 합니다.
@@ -217,6 +219,8 @@ There is essentially **no UI** — install once, then it lives only in the share
     </td>
   </tr>
 </table>
+
+> When conversion finishes, the same system share sheet from ① reappears — this time carrying the converted JPEG/PNG/MP4 for you to send to the app you actually wanted.
 
 ### How it works
 
